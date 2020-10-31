@@ -18,7 +18,6 @@ function uploadSingleFile(file) {
         let response = JSON.parse(xhr.responseText);
         if(xhr.status == 200) {
             singleFileUploadError.style.display = "none";
-            singleFileUploadSuccess.innerHTML = "<p>File Uploaded Successfully.</p><br><p>Download_Logs : <a href='" + response.fileDownloadUri + "' target='_blank'>Click here to download</a></p>";
             singleFileUploadSuccess.style.display = "block";
 
             fetch(response.fileDownloadUri)
@@ -28,6 +27,7 @@ function uploadSingleFile(file) {
                     const temp = data.replace(/(?:\r\n|\r|\n)/g, '<br>')
                     resultShow.innerHTML = "<p class=\"borderexample\">"+temp+"</p>"
                 }));
+            singleFileUploadSuccess.innerHTML = "<button class=\"primary resultbtn\" onclick=\"location.href=\'"+response.fileDownloadUri+"\'\""+ "type=\"button\">" + "Click to download logs</button>";
         } else {
             singleFileUploadSuccess.style.display = "none";
             singleFileUploadError.innerHTML = (response && response.message) || "Some Error Occurred";

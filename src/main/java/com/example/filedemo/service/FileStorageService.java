@@ -1,9 +1,9 @@
 package com.example.filedemo.service;
 
+import com.example.filedemo.controller.FileController;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.*;
 import org.apache.tika.sax.BodyContentHandler;
-import org.xml.sax.SAXException;
 import com.example.filedemo.analyser.*;
 import com.example.filedemo.exception.FileStorageException;
 import com.example.filedemo.exception.MyFileNotFoundException;
@@ -40,6 +40,8 @@ public class FileStorageService {
 
     public String storeFile(MultipartFile file) {
         // Normalize file name
+        long startTime = System.nanoTime();
+
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
         try {
@@ -76,7 +78,7 @@ public class FileStorageService {
                 try {
                     FileWriter myWriter = new FileWriter(targetLocation+"result.txt");
                     myWriter.write("Analysing the file type ...\n");
-                    myWriter.append("The file was identified to be of type : " + type + "\n\n");
+                    myWriter.append("The file was identified to be of type : " + type + "\n\n--------");
                     myWriter.append("\nExtracting METADATA...\nRendring METADATA...\n\n");
 
                     // yahan se code hai data write ka
@@ -97,6 +99,9 @@ public class FileStorageService {
                     for(String name : metadataNames) {
                         myWriter.append(name + ": " + metadata.get(name) + "\n");
                     }
+                    long endTime = System.nanoTime();
+                    double totalTime = (endTime - startTime) / 1e9;
+                    myWriter.append("\n--------\nTime taken to analyse data : "+ totalTime+" seconds\n");
                     myWriter.append("\n---end of transcript---");
                     myWriter.close();
                     //bas yahin tak tha writing operation
