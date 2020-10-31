@@ -32,7 +32,6 @@ body:before {
     clear: both;
 }
 
-
 h1, h2, h3, h4, h5, h6 {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -129,4 +128,9 @@ input[type="file"] {
 .upload-response {
     overflow-x: hidden;
     word-break: break-all;
+}
+.borderexample {
+ border-style:solid;
+ border-color:#287EC7;
+ background-color: #d5f4e6;
 }

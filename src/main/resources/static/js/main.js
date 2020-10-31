@@ -1,25 +1,33 @@
 'use strict';
 
-var singleUploadForm = document.querySelector('#singleUploadForm');
-var singleFileUploadInput = document.querySelector('#singleFileUploadInput');
-var singleFileUploadError = document.querySelector('#singleFileUploadError');
-var singleFileUploadSuccess = document.querySelector('#singleFileUploadSuccess');
-
+const singleUploadForm = document.querySelector('#singleUploadForm');
+const singleFileUploadInput = document.querySelector('#singleFileUploadInput');
+const singleFileUploadError = document.querySelector('#singleFileUploadError');
+const singleFileUploadSuccess = document.querySelector('#singleFileUploadSuccess');
+const resultShow = document.querySelector('#resultShow');
 
 function uploadSingleFile(file) {
-    var formData = new FormData();
+    let formData = new FormData();
     formData.append("file", file);
 
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.open("POST", "/uploadFile");
 
     xhr.onload = function() {
         console.log(xhr.responseText);
-        var response = JSON.parse(xhr.responseText);
+        let response = JSON.parse(xhr.responseText);
         if(xhr.status == 200) {
             singleFileUploadError.style.display = "none";
-            singleFileUploadSuccess.innerHTML = "<p>File Uploaded Successfully.</p><br><p>Download_Logs : <a href='" + response.fileDownloadUri + "' target='_blank'>" + response.fileDownloadUri + "</a></p>";
+            singleFileUploadSuccess.innerHTML = "<p>File Uploaded Successfully.</p><br><p>Download_Logs : <a href='" + response.fileDownloadUri + "' target='_blank'>Click here to download</a></p>";
             singleFileUploadSuccess.style.display = "block";
+
+            fetch(response.fileDownloadUri)
+                .then(response => response.text()
+                .then(data => {
+                    console.log(data)
+                    const temp = data.replace(/(?:\r\n|\r|\n)/g, '<br>')
+                    resultShow.innerHTML = "<p class=\"borderexample\">"+temp+"</p>"
+                }));
         } else {
             singleFileUploadSuccess.style.display = "none";
             singleFileUploadError.innerHTML = (response && response.message) || "Some Error Occurred";
@@ -30,7 +38,7 @@ function uploadSingleFile(file) {
 }
 
 singleUploadForm.addEventListener('submit', function(event){
-    var files = singleFileUploadInput.files;
+    let files = singleFileUploadInput.files;
     if(files.length === 0) {
         singleFileUploadError.innerHTML = "Please select a file";
         singleFileUploadError.style.display = "block";

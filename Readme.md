@@ -1,6 +1,3 @@
-## Spring Boot File Upload / Download Rest API Example
-
-**Tutorial**: [Uploading an Downloading files with Spring Boot](https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/)
 
 ## Steps to Setup
 

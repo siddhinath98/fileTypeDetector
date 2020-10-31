@@ -1,6 +1,10 @@
 package com.example.filedemo.service;
 
-import com.example.filedemo.analyser.analyse;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.parser.*;
+import org.apache.tika.sax.BodyContentHandler;
+import org.xml.sax.SAXException;
+import com.example.filedemo.analyser.*;
 import com.example.filedemo.exception.FileStorageException;
 import com.example.filedemo.exception.MyFileNotFoundException;
 import com.example.filedemo.property.FileStorageProperties;
@@ -51,6 +55,7 @@ public class FileStorageService {
             //open the file and operate on it
             Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
             String type = "";
+
             try {
                 type = analyse.analyses(String.valueOf(filePath));
 
@@ -70,8 +75,32 @@ public class FileStorageService {
                 //writing to file
                 try {
                     FileWriter myWriter = new FileWriter(targetLocation+"result.txt");
-                    myWriter.write("the file was identified to be of type : " + type);
+                    myWriter.write("Analysing the file type ...\n");
+                    myWriter.append("The file was identified to be of type : " + type + "\n\n");
+                    myWriter.append("\nExtracting METADATA...\nRendring METADATA...\n\n");
+
+                    // yahan se code hai data write ka
+                    File file1 = new File(String.valueOf(filePath));
+                    //Parser method parameters
+                    Parser parser = new AutoDetectParser();
+                    BodyContentHandler handler = new BodyContentHandler();
+                    Metadata metadata = new Metadata();
+                    FileInputStream inputstream = new FileInputStream(file1);
+                    ParseContext context = new ParseContext();
+
+                    parser.parse(inputstream, handler, metadata, context);
+                    System.out.println(handler.toString());
+
+                    //getting the list of all meta data elements
+                    String[] metadataNames = metadata.names();
+
+                    for(String name : metadataNames) {
+                        myWriter.append(name + ": " + metadata.get(name) + "\n");
+                    }
+                    myWriter.append("\n---end of transcript---");
                     myWriter.close();
+                    //bas yahin tak tha writing operation
+
                     System.out.println("Successfully wrote to the file.");
                 } catch (IOException e) {
                     System.out.println("An error occurred.");
