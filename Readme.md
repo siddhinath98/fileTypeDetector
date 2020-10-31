@@ -1,10 +1,11 @@
+## Team Lens
 
 ## Steps to Setup
 
 **1. Clone the repository** 
 
 ```bash
-git clone https://github.com/callicoder/spring-boot-file-upload-download-rest-api-example.git
+git clone https://github.com/siddhinath98.fileTypeDetector.git
 ```
 
 **2. Specify the file uploads directory**
@@ -12,7 +13,7 @@ git clone https://github.com/callicoder/spring-boot-file-upload-download-rest-ap
 Open `src/main/resources/application.properties` file and change the property `file.upload-dir` to the path where you want the uploaded files to be stored.
 
 ```
-file.upload-dir=/Users/callicoder/uploads
+file.upload-dir=/Users/uploads
 ```
 
 **2. Run the app using maven**
