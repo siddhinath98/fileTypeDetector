@@ -8,7 +8,7 @@
 git clone https://github.com/siddhinath98.fileTypeDetector.git
 ```
 
-**2. Specify the file uploads directory**
+**2. Specify the file uploads directory (this is optional)**
 
 Open `src/main/resources/application.properties` file and change the property `file.upload-dir` to the path where you want the uploaded files to be stored.
 
