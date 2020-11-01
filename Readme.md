@@ -19,7 +19,7 @@ file.upload-dir=/Users/uploads
 **2. Run the app using maven**
 
 ```bash
-cd spring-boot-file-upload-download-rest-api-example
+cd fileTypeDetector
 mvn spring-boot:run
 ```
 
