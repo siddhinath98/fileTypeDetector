@@ -1,4 +1,3 @@
-## Team Lens
 
 ## Steps to Setup
 
@@ -31,3 +30,8 @@ You may also package the application in the form of a jar and then run the jar f
 mvn clean package
 java -jar target/file-demo-0.0.1-SNAPSHOT.jar
 ```
+
+**SCREENSHOTS**
+<img src="https://github.com/siddhinath98/fileTypeDetector/blob/master/homepage.jpg" alt="homepage">
+
+<img src="https://github.com/siddhinath98/fileTypeDetector/blob/master/results.jpg" alt="results">
